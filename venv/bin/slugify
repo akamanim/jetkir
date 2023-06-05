@@ -1,6 +1,4 @@
-#!/bin/sh
-'''exec' "/home/mithat/Рабочий стол/jetkir.kg/venv/bin/python3" "$0" "$@"
-' '''
+#!/Users/bektur/Desktop/levovo-Ideapad-gaming/jetkir/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
