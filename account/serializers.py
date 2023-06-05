@@ -23,6 +23,6 @@ class RegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         # send_activation_code_celery.delay(user.email, user.activation_code)
-        send_sms.delay(user.phone_number, user.activation_code)
+        send_sms(user.phone_number, user.activation_code)
         
         return user
