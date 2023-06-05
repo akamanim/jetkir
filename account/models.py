@@ -98,6 +98,7 @@ class Level_User(models.Model):
 
 class User(AbstractUser):
     phone_number = models.IntegerField(unique=True)
+    email = models.EmailField(blank=True)    
     name = None
     is_active = models.BooleanField(default=False)
     activation_code = models.CharField(max_length=20, blank=True)
@@ -112,6 +113,17 @@ class User(AbstractUser):
     def __str__(self):
         return f'{self.id} -> {self.phone_number}'
     
-    def create_activation_code(self):
-        code = get_random_string(10, allowed_chars='123456789#@!$%^&*_')
-        self.activation_code = code
+    # def create_activation_code(self):
+    #     code = get_random_string(10, allowed_chars='123456789#@!$%^&*_')
+    #     self.activation_code = code
+
+from .sms_utils import send_sms
+
+def send_code(request):
+    phone_number = phone_number # Номер получателя
+    code = get_random_string(10, allowed_chars='123456789#@!$%^&*_')
+
+    message = f"Your verification code is: {code}"
+    send_sms(phone_number, message)
+
+    # Другой код вашего представления
