@@ -2,8 +2,8 @@ from rest_framework import serializers
 from .models import User
 
 class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(min_lenght=4, required=True, write_only=True)
-    password_confirm = serializers.CharField(min_lenght=4, required=True, write_only=True)
+    password = serializers.CharField(min_length=4, required=True, write_only=True)
+    password_confirm = serializers.CharField(min_length=4, required=True, write_only=True)
 
     class Meta:
         model = User

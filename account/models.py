@@ -25,7 +25,7 @@ class UserManager(BaseUserManager):
         return self._create(phone_number, password, **exctra_fields)
     
 class Level_User(models.Model):
-    title = models.CharField(max_length=120, unique=True, verbose_name='Должность')
+    title = models.CharField(max_length=120, unique=True, verbose_name='Должность', related_name='orders', on_delete=models.CASCADE)
     slug = models.SlugField(max_length=120, unique=True, primary_key=True, blank=True)
     def __str__(self):
         return self.title
@@ -35,14 +35,14 @@ class Level_User(models.Model):
         super().save()
 
 class User(AbstractUser):
-    phone_number = models.IntegerField(max_length=12, unique=True)
+    phone_number = models.IntegerField(unique=True)
     name = None
     is_active = models.BooleanField(default=False)
     activation_code = models.CharField(max_length=20, blank=True)
     objects = UserManager()
-    passport= models.ImageField(default=None)
-    tex_passport = models.ImageField(default=None)
-    car = models.ImageField(default=None)
+    # passport= models.ImageField(default=None)
+    # tex_passport = models.ImageField(default=None)
+    # car = models.ImageField(default=None)
     USERNAME_FIELD = 'phone_number'
     REQUIRED_FIELDS = []
 
