@@ -39,6 +39,7 @@ class UserManager(BaseUserManager):
 class User(AbstractUser):
     email = models.EmailField(unique=True)
     username = None
+    phone_number = None
     is_active = models.BooleanField(default=False)
     activation_code = models.CharField(
         max_length=20, blank=True
