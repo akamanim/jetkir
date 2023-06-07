@@ -1,7 +1,9 @@
 from rest_framework.views import APIView
+
+from .serializers import RegisterSerializer
 from rest_framework.response import Response
 from .models import User
-from .serializers import RegisterSerializer
+
 
 
 class RegisterView(APIView):
@@ -10,16 +12,21 @@ class RegisterView(APIView):
         serializer = RegisterSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            return Response('Succefully registered', 201)
-        
+            return Response(
+                'Successfully registerd', 201
+            )
 
 
 class ActivationView(APIView):
-    def get(self, request, phone_number, activation_code):
-        user = User.objects.filter(phone_number=phone_number, activation_code=activation_code).first()
+    def get(self, request, email, activation_code):
+        user = User.objects.filter(email=email, activation_code=activation_code).first()
         if not user:
-            return Response('user does not exists', 400)
+            return Response(
+                'user does not exist', 400
+            )
         user.activation_code = ''
         user.is_active = True
         user.save()
-        return Response('Activated', 200)
+        return Response(
+            'Activated', 200
+        )
