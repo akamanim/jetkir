@@ -38,14 +38,18 @@ class UserManager(BaseUserManager):
 
 class User(AbstractUser):
     email = models.EmailField(unique=True)
-    username = None
-    phone_number = None
+    phone_number = models.CharField(max_length=13)
     is_active = models.BooleanField(default=False)
     activation_code = models.CharField(
         max_length=20, blank=True
     )
-
+    username = models.CharField(max_length=30, default='name')
+    surname = models.CharField(max_length=30, default='name')
+    passport_image = models.ImageField(upload_to='account.image', default=0)
+    techpassword_image = models.ImageField(upload_to='account.image', default=0)
+    transport_image = models.ImageField(upload_to='account.image', default=0)
     objects = UserManager()
+    is_curier = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -60,6 +64,6 @@ class User(AbstractUser):
     #     return self.is_staff
 
     def create_activation_code(self):
-        code = get_random_string(10, allowed_chars='123456789#@!$%^&*_')
+        code = get_random_string(10, allowed_chars='123456789')
         self.activation_code=code
         
