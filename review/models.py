@@ -14,8 +14,8 @@ class Comment(models.Model):
         return self.body
     
 class RatingUser(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ratings')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ratings', verbose_name='Автор')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='authored_ratings')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_ratings')
     rating = models.PositiveSmallIntegerField()
 
     def __str__(self):
